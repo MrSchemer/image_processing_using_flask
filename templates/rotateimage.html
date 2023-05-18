@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>IMAGE ROTATOR</h1>
+    <form action="/rotates" method="POST" enctype=multipart/form-data>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Input the file you want to resize:</label>
+            <input class="form-control" type="file" name="file" id="formFile">
+        </div>
+        <div class="container" style="display: flex; justify-content: space-between;">
+            <div>
+                <input type="radio" name="angle" value="270" ><label for="left">&nbsp; LEFT</label>
+                
+            </div>
+            <div>
+                <input type="radio" name="angle" value="90" ><label for="right">&nbsp; RIGHT</label>
+            </div>
+            <div>
+                <input type="radio" name="angle" value="180" ><label for="mirror">&nbsp; MIRROR</label>
+            </div>
+            <div>
+                <input type="radio" name='angle'id="myCheckbox">
+                <div id="myContent" class="disabled">
+                    <label for="angle">ENTER ANGLE: </label>
+                    <input type="number" name="angle" id="height" placeholder="HEIGHT"><br>
+                </div>
+            </div>
+
+        </div>
+        <button type='submit' class="btn btn-success my-2">submit</button>
+    </form>
+</div>
+<script>
+    const checkbox = document.getElementById('myCheckbox');
+    const content = document.getElementById('myContent');
+
+    checkbox.addEventListener('click', function () {
+        if (checkbox.checked) {
+            content.classList.remove('disabled');
+        } else {
+            content.classList.add('disabled');
+        }
+    });
+</script>
+{% endblock %}

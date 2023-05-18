@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>IMAGE RESIZER</h1>
+    <form action="/resize" method="post" enctype=multipart/form-data>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Input the file you want to resize:</label>
+            <input class="form-control" type="file" name="file" id="formFile">
+        </div>
+        <div class="container" >
+            <div>
+                <label for="width">ENTER WIDTH: </label>
+                <input type="number" name="width" id="width" placeholder="WIDTH"><br><br>
+            </div>
+            <div>
+                <label for="width">ENTER HEIGHT: </label>
+                <input type="number" name="height" id="height" placeholder="HEIGHT"><br>
+            </div>
+        </div>
+        <button type='submit' class="btn btn-success my-2">submit</button>
+    </form>
+</div>
+{% endblock %}

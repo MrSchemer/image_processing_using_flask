@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+<form action='/edit' method='post' enctype='multipart/form-data'>
+    <div class="mb-3">
+        <label for="formFile" class="form-label">Default file input example</label>
+        <input class="form-control" type="file" name='file' id="formFile">
+    </div>
+    <div class="">
+        
+        <input type="checkbox"  name="operation" value="blur"id="blur"><label for="blur"> &nbsp blur</label><br><br>
+        <input type="checkbox"  name="operation" value="grayscale" id="grayscale"><label for="grayscale"> &nbsp grayscale</label><br><br>
+        
+        
+    </div>
+    <button type='submit' class="btn btn-success my-2">submit</button>
+
+</form></div>
+{% endblock %}

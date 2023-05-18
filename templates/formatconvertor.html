@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+    {% block content %}
+        <section class="container my-2">
+        <h1 class="fs-2 text">BISINTECH image editor</h1>
+        <form action='/edit' method='post' enctype='multipart/form-data'>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Default file input example</label>
+                <input class="form-control" type="file" name='file' id="formFile">
+            </div>
+            <div class="form-floating">
+                <select class="form-select" name="operation" id="floatingSelect"
+                    aria-label="Floating label select example">
+                    <option value="png" selected>choose an operation</option>
+                    <option value="png">change to png</option>
+                    <option value="jpg">change to jpg</option>
+                    <option value="webp">change to webp</option>
+                    <option value="grayscale">change to grayscale</option>
+                </select>
+                <label for="floatingSelect"> select the converter </label>
+            </div>
+            <button type='submit' class="btn btn-success my-2">submit</button>
+
+        </form>
+    </section>
+{% endblock %}

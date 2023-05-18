@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container" >
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="static/1.jpg" class="d-block w-100" width="1600px" height="400px" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5> open source image editor</h5>
+                    <p>edit your imahe on your own way. you will love it!!</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="static/2.jpg" width="1600px" height="400px" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5> open source image editor</h5>
+                    <p>edit your imahe on your own way. you will love it!!</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="static/3.jpg" width="1600px" height="400px" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5> open source image editor</h5>
+                    <p>edit your imahe on your own way. you will love it!!</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="container px-4 py-5" id="hanging-icons">
+        <h2 class="pb-2 border-bottom">Our Functionalities</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+                <div
+                    class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                        style="background-color:rgb(250, 249, 168);margin:5%;border-radius:50%; "
+                        class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="fs-2">Format Converter</h3>
+                    <p>Convert the image to different format like png , jpg, jepg, webp</p>
+                    <a href="/convert" class="btn btn-primary">
+                        Convert
+                    </a>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div
+                    class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                        style="background-color:rgb(65, 219, 85); margin:5%;border-radius:50%;" fill="currentColor"
+                        class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="fs-2">Image Resizer</h3>
+                    <p>resize your image to different size (pp size,a4 size and custom size).</p>
+                    <a href="/resize" class="btn btn-primary">
+                        Resize
+                    </a>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div
+                    class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                        style="background-color:rgb(248, 242, 242);margin:5%;border-radius:50%;" fill="currentColor"
+                        class="bi bi-funnel" viewBox="0 0 16 16">
+                        <path
+                            d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="fs-2">Image Filter</h3>
+                    <p>add different filter in your image easily( grayscale , black &white , and so on)</p>
+                    <a href="/adfilter" class="btn btn-primary">
+                        add filters
+                    </a>
+                </div>
+                </div>
+                
+                <div class="col d-flex align-items-start">
+                    <div
+                        class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                            style="background-color:rgb(248, 242, 242);margin:5%;border-radius:50%;" fill="currentColor"
+                            class="bi bi-funnel" viewBox="0 0 16 16">
+                            <path
+                                d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="fs-2">Paraphraser</h3>
+                        <p>add different filter in your image easily( grayscale , black &white , and so on)</p>
+                        <a href="/paraphrases" class="btn btn-primary">
+                            paraphrase
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
