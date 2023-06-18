@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Rotate Image</h1>
+    <form method="POST" enctype="multipart/form-data" action="/rotate">
+        <div class="mb-3">
+            <label for="file" class="form-label">Select an image file:</label>
+            <input type="file" class="form-control" name="file" id="file" required>
+        </div>
+        <div class="mb-3">
+            <label for="angle" class="form-label">Angle (in degrees):</label>
+            <input type="number" class="form-control" name="angle" id="angle" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Rotate</button>
+    </form>
+</div>
+    {% endblock %}

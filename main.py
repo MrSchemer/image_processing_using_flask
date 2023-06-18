@@ -1,20 +1,25 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 from PIL import Image
 import os
 import cv2
 
-
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif','svg'}
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Maximum file size (16MB)
 
-app.secret_key = 'the random string'
-UPLOAD_FOLDER = os.path.abspath('uploads')
-ALLOWED_EXTENSIONS = {'webp', 'png', 'jpg', 'jpeg', 'gif'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
+def rotate_image(image_path, output_path, angle):
+    with Image.open(image_path) as image:
+        rotated_image = image.rotate(angle, expand=True)
+        rotated_image.save(output_path)
 
 def fresizer(file, width, height):
-    img = cv2.imread(f"uploads/{file}")
+    img = cv2.imread(f"static/uploads/{file}")
 
     try:
         width = int(width)
@@ -26,17 +31,9 @@ def fresizer(file, width, height):
     cv2.imwrite(nfilename, resized)
     return nfilename
 
-
-def rotator(img, angle):
-    rotated_img = img.rotate(angle)
-    nfilename = f"static/results/{img}"
-    cv2.imwrite(nfilename, rotated_img)
-    return nfilename
-
-
 def process(image, oper):
     print(f"{oper}")
-    filename = cv2.imread(f"uploads/{image}")
+    filename = cv2.imread(f"static/uploads/{image}")
     match oper:
         case "grayscale":
             imagep = cv2.cvtColor(filename, cv2.COLOR_BGR2GRAY)
@@ -64,23 +61,17 @@ def process(image, oper):
             return filename
 
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
 @app.route('/')
-def hello_world():
-    return render_template("index.html")
-
+def index():
+    return render_template('index.html')
 
 @app.route('/convert')
 def convert():
     return render_template("formatconvertor.html")
 
 
-@app.route('/resize')
-def resize():
+@app.route('/resizor')
+def resizer():
     return render_template("resizor.html")
 
 
@@ -88,79 +79,80 @@ def resize():
 def filter():
     return render_template("addfilters.html")
 
-@app.route('/rotates')
-def rot():
-    return render_template("rotateimage.html")
-
-@app.route('/edit', methods=["GET", "POST"])
-def edit():
-    if (request.method == "POST"):
+@app.route('/rotate', methods=['GET', 'POST'])
+def rotate():
+    if request.method == 'POST':
+        # Check if file is present in the request
         if 'file' not in request.files:
-            flash('No file part')
-            return "error"
+            return 'No file part in the request'
 
         file = request.files['file']
-        operation = request.form.get("operation")
 
-        if file.filename == '':
-            flash('No selected file')
-            return "error no selected file"
+        # Check if the file is allowed
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            nfilename = process(filename, operation)
-            flash(
-                f"your image hasbeen processed and available  <a href='/{nfilename}' target='_blank'>here</a>")
-            return render_template("index.html")
-    return redirect("/")
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
 
+            # Read the angle from the form
+            angle = int(request.form['angle'])
 
+            # Generate a unique output filename
+            output_filename = f'rotated_{angle}_{filename}'
+            output_path = os.path.join(app.config['UPLOAD_FOLDER'], output_filename)
+
+            # Rotate the image
+            rotate_image(file_path, output_path, angle)
+
+            # Pass the rotated image path to the template for display
+            rotated_image_path = '/' + output_path
+            print(rotated_image_path)
+            return render_template('result.html', image_path=rotated_image_path)
+
+    return render_template('rotate.html')
 @app.route('/resize', methods=["GET", "POST"])
-def resizer():
+def resize():
     if (request.method == "POST"):
         if 'file' not in request.files:
-            flash('No file part')
             return "error"
 
         file = request.files['file']
-        operation = request.form.get("operation")
         height = request.form.get("height")
         width = request.form.get("width")
 
         if file.filename == '':
-            flash('No selected file')
             return "error no selected file"
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             print(f"the filr is {filename} with {width}x{height}")
             nfilename = fresizer(filename, width, height)
-            flash(
-                f"your image hasbeen processed and available  <a href='/{nfilename}' target='_blank'>here</a>")
-            return render_template("index.html")
-    return redirect("/")
+            outputpath = f"/{nfilename}"
+            return render_template("result.html", image_path=outputpath)
+
+    return render_template("resizor.html")
 
 
-@app.route('/rotate', methods=["GET", "POST"])
-def rotates():
+@app.route('/edit', methods=["GET", "POST"])
+def edit():
     if (request.method == "POST"):
         if 'file' not in request.files:
-            flash('No file part')
             return "error"
+
         file = request.files['file']
-        angle = request.form.get("angle")
+        format = request.form.get("format")
+
         if file.filename == '':
-            flash('No selected file')
+            
             return "error no selected file"
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            nfilename = rotator(filename, angle)
-            flash(
-                f"your image hasbeen processed and available  <a href='/{nfilename}' target='_blank'>here</a>")
-            return render_template("index.html")
-    pass
+            nfilename = process(filename, format)
+            outputpath = f"/{nfilename}"
+            return render_template("result.html", image_path=outputpath)
 
-
+    return render_template("formatconvertor.html")
+   
 if __name__ == '__main__':
-    app.run(debug=True, port=5500)
+    app.run(debug=True)
